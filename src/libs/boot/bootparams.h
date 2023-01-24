@@ -19,4 +19,6 @@ typedef struct  {
 typedef struct {
     MemoryInfo Memory;
     uint8_t BootDevice;
+    uint32_t kernStart;
+    uint32_t kernEnd;
 } BootParams;

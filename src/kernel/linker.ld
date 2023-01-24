@@ -1,7 +1,6 @@
 ENTRY(start)
 OUTPUT_FORMAT("elf32-i386")
 phys = 0x00100000;
-
 SECTIONS
 {
     . = phys;
@@ -11,5 +10,6 @@ SECTIONS
     .rodata             : { __rodata_start = .;     *(.rodata)  }
     .bss                : { __bss_start = .;        *(.bss)     }
     
-    __end = .;
+    end = .;
+    
 }
