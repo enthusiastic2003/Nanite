@@ -91,6 +91,7 @@ if HOST_ENVIRONMENT['arch'] == 'i686':
     platform_prefix = 'i686-elf-'
 
 toolchainDir = Path(HOST_ENVIRONMENT['toolchain'], RemoveSuffix(platform_prefix, '-')).resolve()
+print("DEBUG::: ",HOST_ENVIRONMENT['toolchain'])
 toolchainBin = Path(toolchainDir, 'bin')
 toolchainGccLibs = Path(toolchainDir, 'lib', 'gcc', RemoveSuffix(platform_prefix, '-'), DEPS['gcc'])
 
