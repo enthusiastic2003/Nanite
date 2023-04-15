@@ -15,7 +15,6 @@ done:
 ret
 
 
-
 global pmmngr_is_paging
 pmmngr_is_paging:
 push ebx
@@ -26,6 +25,7 @@ and ebx, 0x80000000
 mov eax, ebx
 pop ebx
 ret
+
 
 global pmmngr_load_PDBR
 pmmngr_load_PDBR:

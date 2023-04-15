@@ -83,7 +83,12 @@ void start(BootParams* bootParams)
     printf("\nNanite\n");
     printf("This operating system is under construction.\n");
     //i686_IRQ_RegisterHandler(0, timer);
-
+    if(pmmngr_is_paging()){
+        printf("\nPAGING---YES\n");
+    }
+    else{
+        printf("\nPAGING---NO\n");
+    }
    
 
 end:
