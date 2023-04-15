@@ -41,16 +41,17 @@ uint32_t pmmngr_get_block_count ();
 uint32_t pmmngr_get_block_size ();
 
 //! enable or disable paging
-void	pmmngr_paging_enable (bool);
+void __attribute__((cdecl))	pmmngr_paging_enable (bool);
 
 //! test if paging is enabled
-bool	pmmngr_is_paging ();
+bool __attribute__((cdecl))	pmmngr_is_paging ();
 
 //! loads the page directory base register (PDBR)
-void	pmmngr_load_PDBR (physical_addr);
+void __attribute__((cdecl))	pmmngr_load_PDBR (physical_addr);
 
 //! get PDBR physical address
-physical_addr pmmngr_get_PDBR ();
+physical_addr __attribute__((cdecl)) pmmngr_get_PDBR ();
+
 
 //============================================================================
 //    INTERFACE OBJECT CLASS DEFINITIONS
@@ -63,5 +64,5 @@ physical_addr pmmngr_get_PDBR ();
 //**    END [mmngr_phys.h]
 //**
 //****************************************************************************
-
+int __attribute__((cdecl)) test1(int);
 #endif
