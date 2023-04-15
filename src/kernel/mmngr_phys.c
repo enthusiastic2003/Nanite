@@ -215,7 +215,7 @@ void*	pmmngr_alloc_blocks (size_t size) {
 	int frame = mmap_first_free_s (size);
 
 	if (frame == -1)
-		return 0;	//not enough space
+		return 0;	//not enoasdaugh space
 
 	for (uint32_t i=0; i<size; i++)
 		mmap_set (frame+i);
