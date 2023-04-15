@@ -35,16 +35,26 @@ pop ebp
 ret
 
 
-global pmmngr_load_PDBR  ;TODO: apply CDECL correctly
+global pmmngr_load_PDBR  
 pmmngr_load_PDBR:
+push ebp
+mov ebp, esp
+push edi
+mov edi, [esp+8]
 mov	eax, edi
-mov	cr3, eax		
+mov	cr3, eax	
+pop edi
+pop ebp
+ret	
 
 
-global pmmngr_get_PDBR ;TODO: apply CDECL correctly
+global pmmngr_get_PDBR 
 pmmngr_get_PDBR:
+push ebp
 mov	eax, cr3
+pop ebp
 ret
+
 
 global test1
 test1:

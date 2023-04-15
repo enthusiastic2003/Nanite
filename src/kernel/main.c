@@ -96,7 +96,9 @@ void start(BootParams* bootParams)
     else{
         printf("\nPAGING2---NO\n");
     }
-    printf("\nReturn value:%d \n",test1(1));
+    char* A= 0x3ffe0000;
+    
+    printf("\nrequested value: %x \nReturn value:%x \n",A,test1(A));
     
 end:
     for (;;);

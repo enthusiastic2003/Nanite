@@ -64,5 +64,5 @@ physical_addr __attribute__((cdecl)) pmmngr_get_PDBR ();
 //**    END [mmngr_phys.h]
 //**
 //****************************************************************************
-int __attribute__((cdecl)) test1(int);
+int __attribute__((cdecl)) test1(char*);
 #endif
