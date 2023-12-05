@@ -7,7 +7,6 @@
 #include <boot/bootparams.h>
 #include<stdbool.h>
 #include"mmngr_phys.h"
-
 extern void _init();
 
 
@@ -89,16 +88,16 @@ void start(BootParams* bootParams)
     else{
         printf("\nPAGING---NO\n");
     }
+    */
+   init_paging();
    pmmngr_paging_enable(1);
-   */if(pmmngr_is_paging()){
+   if(pmmngr_is_paging()){
         printf("\nPAGING2---YES\n");
     }
     else{
         printf("\nPAGING2---NO\n");
     }
-    char* A= 0x3ffe0000;
     
-    printf("\nrequested value: %x \nReturn value:%x \n",A,test1(A));
     
 end:
     for (;;);

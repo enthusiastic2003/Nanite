@@ -1,65 +1,36 @@
 global pmmngr_paging_enable
 pmmngr_paging_enable:
-push ebp
-mov ebp,esp
-mov	eax, cr0
-push edi
-mov edi, [ebp+8]
-cmp edi, 1
-je	enable
-jmp disable
-enable:
-or eax, 0x80000000		
-mov	cr0, eax
-jmp done
-disable:
-and eax, 0x7FFFFFFF		
-mov	cr0, eax
-done:
-pop edi
-pop ebp
-ret
+mov ebx, cr0        ; read current cr0
+or  ebx, 0x80000000 ; set PG .  set pages as read-only for both userspace and supervisor, replace 0x80000000 above with 0x80010000, which also sets the WP bit.
+mov cr0, ebx        ; update cr0
+ret               
 
 
 global pmmngr_is_paging
 pmmngr_is_paging:
-push ebp
-push ebx
-mov ebx,0
-mov	eax, cr0
-mov	ebx, eax
-and ebx, 0x80000000
-mov eax, ebx
-pop ebx
-pop ebp
+mov eax, cr0         ; Move the value of CR0 register to eax
+test eax, 0x80000000 ; Test if the PG (Paging) bit is set
+jz no_paging         ; Jump to no_paging if the PG bit is not set
+; Paging is enabled
+mov eax, 1           ; Set eax to 1 (or any other value indicating paging is enabled)
+jmp done
+no_paging:
+; Paging is not enabled
+xor eax, eax         ; Set eax to 0 (or any other value indicating paging is not enabled)
+done:
 ret
 
 
 global pmmngr_load_PDBR  
 pmmngr_load_PDBR:
-push ebp
-mov ebp, esp
-push edi
-mov edi, [esp+8]
-mov	eax, edi
-mov	cr3, eax	
-pop edi
-pop ebp
+mov eax, [esp+4]
+mov	cr3, eax
 ret	
 
 
 global pmmngr_get_PDBR 
 pmmngr_get_PDBR:
-push ebp
 mov	eax, cr3
-pop ebp
 ret
 
 
-global test1
-test1:
-push ebp
-mov  ebp, esp
-mov eax, [ebp+8]
-pop ebp
-ret

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-QEMU_ARGS='-debugcon stdio -m 1024M'
+QEMU_ARGS='-debugcon stdio -m 1024M '
 
 if [ "$#" -le 1 ]; then
     echo "Usage: ./run.sh <image_type> <image>"

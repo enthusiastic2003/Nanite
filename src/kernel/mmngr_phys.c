@@ -18,6 +18,11 @@
 //! block alignment
 #define PMMNGR_BLOCK_ALIGN	PMMNGR_BLOCK_SIZE
 
+//! paging details
+unsigned int page_directory[NUM_PAGES] __attribute__((aligned(PAGE_FRAME_SIZE)));
+unsigned int page_table[NUM_PAGES] __attribute__((aligned(PAGE_FRAME_SIZE)));
+
+
 //============================================================================
 //    IMPLEMENTATION PRIVATE CLASS PROTOTYPES / EXTERNAL CLASS REFERENCES
 //============================================================================
@@ -260,6 +265,30 @@ uint32_t pmmngr_get_free_block_count () {
 uint32_t pmmngr_get_block_size () {
 
 	return PMMNGR_BLOCK_SIZE;
+}
+
+void init_paging() {
+	int i;
+
+	// Create page directory, supervisor mode, read/write, not present : 0 1 0 = 2   
+	for (i = 0; i < NUM_PAGES; i++) {
+		page_directory[i] = 0x00000002;
+        //page_directory[i] = (unsigned int)directory;    
+     	}     
+
+	// Create page table, supervisor mode, read/write, present : 0 1 1 = 3   
+	// As the address is page aligned, it will always leave 12 bits zeroed.  
+	for (i = 0; i < NUM_PAGES; i++) { 
+	        page_table[i] = (i * 0x1000) | 3;
+	}	
+
+	// put page_table into page_directory supervisor level, read/write, present
+	page_directory[0] = ((unsigned int)page_table) | 3;
+	 	
+   	pmmngr_load_PDBR(page_directory);
+	printf("Page Directory at addr: %x \n",page_directory);
+	printf("Loaded into cr3: %x\n",pmmngr_get_PDBR());
+   	//register_interrupt_handler(14, handle_page_fault);
 }
 
 /*void	pmmngr_paging_enable (bool b) {
